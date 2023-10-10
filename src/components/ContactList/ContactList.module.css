@@ -2,7 +2,7 @@
   height: 400px;
   overflow: scroll;
   overflow-x: hidden;
-  width: 500px;
+  width: 350px;
   margin-top: 20px;
 }
 
@@ -34,6 +34,7 @@ li {
 
 li > p {
   margin-right: 20px;
+  margin-left: 10px;
 }
 
 .avatar {

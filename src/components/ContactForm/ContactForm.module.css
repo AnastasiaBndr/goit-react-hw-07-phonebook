@@ -28,7 +28,7 @@ button:focus {
 }
 input {
   all: unset;
-  border: 1px solid rgb(255, 244, 230);
+  border: 1px solid rgb(187, 165, 207);
   padding: 10px;
   border-radius: 5px;
 }
@@ -48,9 +48,9 @@ input:focus {
   }
 }
 
-.add__contact__container{
+.add__contact__container {
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
 }
