@@ -1,57 +1,41 @@
 import css from "./ContactForm.module.css";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
+import Notiflix from "notiflix";
 import * as contactsOperations from "redux/contacts/contactsOperations";
+import { contactsSelectors } from "redux/contacts";
 
 
 const ContactForm = () => {
-
+  const contacts = useSelector(contactsSelectors.getContacts);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(contactsOperations.fetchContacts());
-    console.log('ujfds')
+    console.log('form')
   }, [dispatch]);
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const number = e.currentTarget.elements.number.value;
-  //   const name = e.currentTarget.elements.name.value;
+  const handleSubmit = async (e) => {
 
-  //   const namePattern = new RegExp("^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$");
-  //   const numberPattern = new RegExp("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-/s/./0-9]*$");
 
-  //   if (!namePattern.test(name) && !numberPattern.test(number))
-  //     Notiflix.Notify.failure("Name and phone number are incorrect!");
-  //   else if (!namePattern.test(name))
-  //     Notiflix.Notify.failure("Name is incorrect!")
-  //   else if (!numberPattern.test(number))
-  //     Notiflix.Notify.failure("Phone number is incorrect! Accepted type is: +380000000000")
-  //   else {
 
-  //     if (contacts.find(contact => contact.number === number))
-  //       Notiflix.Notify.failure("This contact exists!")
-  //     else {
-  //       const newUser = { id: "id:" + number, name: name, number: number };
-  //       dispatch(add(newUser))
-  //       localStorage.setItem("contacts", JSON.stringify([...contacts, newUser]));
+    e.preventDefault();
+    const number = e.currentTarget.elements.number.value;
+    const name = e.currentTarget.elements.name.value;
+    if (contacts.find(contact => contact.number === number))
+      Notiflix.Notify.failure("This contact exists!")
+    else {
+      const newUser = { name: name, number: number, avatar: '' };
+      dispatch(contactsOperations.addContact(newUser))
+    }
 
-  //       var getValue = document.getElementById("name");
-  //       if (getValue.value !== "") {
-  //         getValue.value = "";
-  //       }
-
-  //       getValue = document.getElementById("tel");
-  //       if (getValue.value !== "") {
-  //         getValue.value = "";
-  //       }
-  //     }
-  //   }
-  // }
+    const form = e.target;
+    form.reset();
+  }
 
   return (<section className={css.main_page_container}>
-    <form className={css.add__contact__container}>
+    <form className={css.add__contact__container} onSubmit={handleSubmit}>
       <div className={css.name_container}>
         <h3>Name</h3>
         <input

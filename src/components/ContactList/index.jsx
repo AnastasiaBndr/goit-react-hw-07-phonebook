@@ -11,10 +11,10 @@ const ContactList = () => {
 
     useEffect(() => {
         dispatch(contactsOperations.fetchContacts());
-        console.log('ujfds')
     }, [dispatch]);
 
     const onClickDelete = id => {
+        dispatch(contactsOperations.deleteContact(id));
 
     }
 
