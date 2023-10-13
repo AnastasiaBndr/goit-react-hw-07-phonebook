@@ -1,33 +1,32 @@
 import css from "./ContactForm.module.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Notiflix from "notiflix";
 import * as contactsOperations from "redux/contacts/contactsOperations";
 import { contactsSelectors } from "redux/contacts";
+import image from '../../images/no-image.jpg';
 
 
 const ContactForm = () => {
   const contacts = useSelector(contactsSelectors.getContacts);
   const dispatch = useDispatch();
+  const [temp, setTemp] = useState('');
 
   useEffect(() => {
     dispatch(contactsOperations.fetchContacts());
-    console.log('form')
-  }, [dispatch]);
+  }, [dispatch, temp]);
 
   const handleSubmit = async (e) => {
-
-
-
     e.preventDefault();
     const number = e.currentTarget.elements.number.value;
     const name = e.currentTarget.elements.name.value;
     if (contacts.find(contact => contact.number === number))
       Notiflix.Notify.failure("This contact exists!")
     else {
-      const newUser = { name: name, number: number, avatar: '' };
-      dispatch(contactsOperations.addContact(newUser))
+      const newUser = { name: name, number: number, avatar: image };
+      await dispatch(contactsOperations.addContact(newUser));
+      await setTemp(number);
     }
 
     const form = e.target;

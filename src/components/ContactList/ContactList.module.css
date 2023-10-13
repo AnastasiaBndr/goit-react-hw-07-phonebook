@@ -44,3 +44,8 @@ li > p {
   width: 60px;
   border-radius: 50%;
 }
+
+.loader {
+  position: absolute;
+  background-color: black;
+}

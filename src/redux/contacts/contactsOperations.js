@@ -19,7 +19,6 @@ export const addContact = createAsyncThunk('contacts/add', async contact => {
   const contacts = await axios
     .post('https://652541e867cfb1e59ce6f87a.mockapi.io/all/contacts', contact)
     .then(resp => {
-      console.log(contact);
       return resp.data;
     })
     .catch(err => console.log('якась фігня'));
@@ -31,7 +30,7 @@ export const deleteContact = createAsyncThunk('contacts/delete', async id => {
   const contacts = await axios
     .delete(`https://652541e867cfb1e59ce6f87a.mockapi.io/all/contacts/${id}`)
     .then(resp => {
-      return resp.data;
+      console.log('deleted!');
     })
     .catch(err => console.log('якась фігня'));
 
